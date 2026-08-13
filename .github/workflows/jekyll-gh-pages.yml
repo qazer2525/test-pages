@@ -28,15 +28,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-      - name: Build with Jekyll
-        uses: actions/jekyll-build-pages@v1
-        with:
-          source: ./
-          destination: ./_site
+
+      # Instead of building with Jekyll, unpack your archive
+      - name: Extract site archive
+        run: |
+          mkdir -p ./_site
+          unzip -q site.zip -d ./_site
+        # or if using tar: tar -xzf site.tar.gz -C ./_site
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./_site   # deploy this folder
 
   # Deployment job
   deploy:
