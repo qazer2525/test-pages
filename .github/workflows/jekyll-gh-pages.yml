@@ -26,6 +26,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Append baseurl to _config.yml
+        run: |
+          echo "baseurl: /${{ github.event.repository.name }}" >> _config.yml
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Pages
